@@ -21,12 +21,12 @@ def faces_filter(rects):
     """Filter and sort face boxes, removing overlapping boxes (keeping the smallest)"""
     rects = sorted(rects, key=lambda r: r[2] * r[3])
     output = []
-    for i in range(len(rects)):
+    for rect in rects:
         conflicted = False
-        for j in range(len(output)):
-            conflicted = conflicted or box_in_box(rects[i], output[j])
+        for output_rect in output:
+            conflicted = conflicted or box_in_box(rect, output_rect)
         if not conflicted:
-            output.append(rects[i])
+            output.append(rect)
     return list(reversed(output))
 
 
